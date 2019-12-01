@@ -1,0 +1,73 @@
+plroblem link:
+https://www.hackerearth.com/practice/algorithms/graphs/depth-first-search/practice-problems/algorithm/bishu-and-his-girlfriend/
+
+from collections import defaultdict as dfd
+
+class Graph:
+
+	def __init__(self,v):
+		self.graph=dfd(list)
+		self.V=v
+
+	def addEdge(self,u,v):
+		self.graph[u].append(v)
+		self.graph[v].append(u)
+
+	def show(self):
+		print(self.graph)
+
+	def bfs(self,s,d):
+		visited={i:False for i in range(1,self.V+1)}
+		c=0
+		q=[[s,c]]
+		visited[s]=True
+		
+	
+		while q:
+			#print(q,c)
+			node,c=q[0]
+			del q[0]
+	
+			if node==d:
+				return node, c
+			f=1
+			
+			
+			for i in self.graph[node]:
+				if visited[i]==False:
+					visited[i]=True
+					q.append([i,c+1])
+					f=0
+
+			if f==0:c+=1
+
+                
+                
+        
+        
+
+n=int(input())
+g=Graph(n)
+for i in range(n-1):
+    g.addEdge(*list(map(int,input().split())))
+    
+q=int(input())
+mn=10*9
+ele=0
+qq=[]
+for i in range(q):
+    qq.append(int(input()))
+
+for i in qq:
+    node,dist=g.bfs(1,i)
+    #print(node,dist)
+    if dist<mn:
+        mn=dist
+        ele=node
+    if mn==dist:
+        if ele>node:
+            ele=node
+print(ele)
+        
+
+
